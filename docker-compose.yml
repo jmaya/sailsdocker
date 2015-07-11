@@ -1,0 +1,22 @@
+app:
+  build: .
+  environment:
+    - NODE_ENV=development
+  # command: pm2 start -x app.js  --no-daemon
+  command: sails lift
+  ports:
+    - 192.168.99.100:1337:1337
+  links:
+    - db
+  volumes:
+    - .:/app
+db:
+  image: percona:5.6
+  environment:
+    - MYSQL_ROOT_PASSWORD=Password1
+    - MYSQL_DATABASE=sails_development
+    - MYSQL_USER=sails
+    - MYSQL_PASSWORD=sails
+  ports:
+    - 192.168.99.100:3306:3306
+
